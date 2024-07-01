@@ -66,7 +66,7 @@ paths:
       summary: User Profile API
       description: API for fetching a user profile
       #produces:
-       # - application/json
+      # - application/json
       responses:
         '200':
           description: User profile retrieved successully
@@ -99,6 +99,225 @@ paths:
             $ref: '#/definitions/ApiResponse'
         '400':
           description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/profile/accounts:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for fetching all accounts
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: accounts retrieved successully
+          schema:
+            $ref: '#/definitions/FetchAllaccounts'
+        '401':
+          description: Expired token
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+  /user/profile/transactions/{account.id}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for fetching all transactions
+      parameters:
+        - in: path
+          name: account.id
+          description: Fetch all transactions
+          type: integer
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transactions retrieved successully
+          schema:
+            $ref: '#/definitions/FetchAllTransactions'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Expired token
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+  /user/profile/transaction/{id}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for fetching a specific transaction
+      parameters:
+        - in: path
+          name: id
+          description: Fetch a specific transaction
+          type: integer
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction retrieved successully
+          schema:
+            $ref: '#/definitions/TransactionResponse'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Expired token
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+  /user/profile/transaction/{id}/newcategory:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for adding new categrory
+      parameters:
+        - in: path
+          name: id
+          description: New transaction category
+          type: integer
+          required: true
+        - in: body
+          name: body
+          description: Request body for new transaction category
+          required: true
+          schema:
+            $ref: '#/definitions/NewTransactionCategory'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Category add successully
+          schema:
+            $ref: '#/definitions/NewTransactionCategoryresponse'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Expired token
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+  /user/profile/transaction/{id}/newnote:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for adding new note
+      parameters:
+        - in: path
+          name: id
+          description: New transaction note
+          type: integer
+          required: true
+        - in: body
+          name: body
+          description: Request body for new transaction note
+          required: true
+          schema:
+            $ref: '#/definitions/NewTransactionNote'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Note add successully
+          schema:
+            $ref: '#/definitions/NewTransactionNoteresponse'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Expired token
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+  /user/profile/transaction/{id}/category:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for editing a transaction's category
+      parameters:
+        - in: path
+          name: id
+          description: Edit transaction category
+          type: integer
+          required: true
+        - in: body
+          name: body
+          description: Request body for editing transaction category
+          required: true
+          schema:
+              $ref: '#/definitions/EditTransactionCategory'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction category edited successfully
+          schema:
+            $ref: '#/definitions/EditTransactionCategory'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Expired token
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+  /user/profile/transaction/{id}/notes:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for editing a transaction's notes
+      parameters:
+        - in: path
+          name: id
+          description: Update user profile attributes
+          type: integer
+          required: true
+        - in: body
+          name: body
+          description: Request body for editing transaction notes
+          required: true
+          schema:
+              $ref: '#/definitions/FetchTransactionNotes'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Note edited successfully
+          schema:
+            $ref: '#/definitions/FetchTransactionNotes'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Expired token
+        '403':
+          description: Forbidden
         '500':
           description: Internal Server Error
 securityDefinitions:
@@ -155,4 +374,73 @@ definitions:
     type: object
     properties:
       userName:
+        type: string
+  FetchAllaccounts:
+    type: object
+    properties:
+      account-id:
+        type: integer
+      accout-balance:
+        type: integer
+  FetchAllTransactions:
+    type: object
+    properties:
+      transaction-id:
+        type: integer
+      transaction-desc:
+        type: string
+      transaction-amount:
+        type: integer
+      transaction-date:
+        type: string
+  TransactionResponse:
+    type: object
+    properties:
+      transaction-type:
+        type: string
+      transaction-category:
+        type: string
+      transaction-notes:
+        type: string
+  NewTransactionCategory:
+    type: object
+    properties:
+      transaction-id:
+        type: integer
+      transaction-category:
+        type: string        
+  NewTransactionCategoryresponse:
+    type: object
+    properties:
+      transaction-id:
+        type: integer
+      transaction-category:
+        type: string
+  NewTransactionNote:
+    type: object
+    properties:
+      transaction-id:
+        type: integer
+      transaction-note:
+        type: string
+  NewTransactionNoteresponse:
+    type: object
+    properties:
+      transaction-id:
+        type: integer
+      transaction-note:
+        type: string
+  EditTransactionCategory:
+    type: object
+    properties:
+      transaction-id:
+        type: integer
+      transaction-category:
+        type: string
+  FetchTransactionNotes:
+    type: object
+    properties:
+      transaction-id:
+        type: integer
+      transaction-notes:
         type: string
