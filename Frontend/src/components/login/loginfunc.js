@@ -57,7 +57,7 @@ export async function ChangeUsername (newusername, dispatch,token){
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(
-                {"username": newusername}
+                {"userName": newusername}
             )
             });
             const retour = await response.json();
