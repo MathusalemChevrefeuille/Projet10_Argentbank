@@ -4,7 +4,7 @@ import icon_money from "../../assets/icon-money.webp"
 import icon_security from "../../assets/icon-security.webp"
 
 
-function Homepage(){
+function HomePage(){
     return(
         <div>
             <div className="hero">
@@ -25,4 +25,4 @@ function Homepage(){
     )
 }
 
-export default Homepage
+export default HomePage

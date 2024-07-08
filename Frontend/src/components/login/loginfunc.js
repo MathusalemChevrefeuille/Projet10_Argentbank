@@ -1,5 +1,5 @@
 import {setToken,setfirstName,setlastName,setuserName,logout} from "../../Slice/loginslice"
-import store from "../store";
+
 
 export async function LoginUser (logs, dispatch, navigate){
     try{
@@ -21,7 +21,7 @@ export async function LoginUser (logs, dispatch, navigate){
         dispatch(setuserName(userProfile.userName));
         dispatch(setfirstName(userProfile.firstName));
         dispatch(setlastName(userProfile.lastName));
-        navigate("/accountpage");
+        navigate("/accountPage");
     }
     catch (error){
         console.error(error);

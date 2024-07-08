@@ -1,11 +1,12 @@
-import Accountbanner from "./accountbanner";
+import Accountbanner from "./accountBanner";
 import {useState} from "react";
 import {ChangeUsername} from "../login/loginfunc";
 import { useSelector, useDispatch } from 'react-redux'
 
-function Accountpage(){
+function AccountPage(){
     const firstName = useSelector(state => state.login.firstName);
     const lastName = useSelector(state => state.login.lastName);
+    const userNamedb = useSelector(state => state.login.userName);
     const dispatch = useDispatch()
     const [userName, setUsername] = useState('');
     const [Edit, setEdit] = useState(false);
@@ -28,7 +29,7 @@ function Accountpage(){
     return (
         <main className="main bg-dark">
             <div className="header">
-                <h1>Welcome back<br/>{firstName} {lastName}</h1>
+                <h1>Welcome back<br/>{firstName} {lastName} ({userNamedb}) </h1>
                 {!Edit && (
                     <button onClick={showEdit} className="edit-button">Edit Name</button>
                 )}{Edit && (
@@ -66,4 +67,4 @@ function Accountpage(){
 }
 
 
-export default Accountpage
+export default AccountPage
