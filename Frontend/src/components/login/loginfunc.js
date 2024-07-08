@@ -61,7 +61,7 @@ export async function ChangeUsername (newusername, dispatch,token){
             )
             });
             const retour = await response.json();
-            dispatch(setuserName({ userName: newusername }));
+            dispatch(setuserName(newusername ));
             return retour.body;
         }
         catch (error) {

@@ -6,12 +6,12 @@ import { useSelector, useDispatch } from 'react-redux'
 function AccountPage(){
     const firstName = useSelector(state => state.login.firstName);
     const lastName = useSelector(state => state.login.lastName);
-    const userNamedb = useSelector(state => state.login.userName);
+    const userName = useSelector(state => state.login.userName);
     const dispatch = useDispatch()
-    const [userName, setUsername] = useState('');
+    const [userNameInput, setUserNameInput] = useState('');
     const [Edit, setEdit] = useState(false);
     const token = useSelector(state => state.login.token.token);
-
+    console.log({userName},{firstName},{lastName})
     function showEdit() {
         setEdit(true);
     }
@@ -22,14 +22,14 @@ function AccountPage(){
 
     const cusername = (event) => {
         event.preventDefault();
-        ChangeUsername(userName, dispatch,token);
+        ChangeUsername(userNameInput, dispatch,token);
     };
 
 
     return (
         <main className="main bg-dark">
             <div className="header">
-                <h1>Welcome back<br/>{firstName} {lastName} ({userNamedb}) </h1>
+                <h1>Welcome back<br/>{firstName} {lastName} ({userName}) </h1>
                 {!Edit && (
                     <button onClick={showEdit} className="edit-button">Edit Name</button>
                 )}{Edit && (
@@ -37,8 +37,8 @@ function AccountPage(){
                         <form>
                             <div className={"form-field"}>
                                 <label htmlFor={"username"}>User name:</label>
-                                <input id={"username"} type={"text"} value={userName}
-                                       onChange={(evt) => setUsername(evt.target.value)}/>
+                                <input id={"username"} type={"text"} value={userNameInput}
+                                       onChange={(evt) => setUserNameInput(evt.target.value)}/>
                             </div>
                             <div className={"form-field"}>
                                 <label htmlFor={"firstname"}>First name:</label>
